@@ -1,0 +1,53 @@
+# ---- PYTHON / DJANGO ----
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# Django static and media files
+staticfiles/
+media/
+static/
+
+# Django migrations
+**/migrations/
+!*/migrations/__init__.py
+
+# Secret files
+.env
+.env.*
+
+# VSCode and editor-specific
+.vscode/
+.idea/
+*.swp
+
+# ---- NODE / REACT ----
+node_modules/
+build/
+dist/
+.npm/
+.cache/
+.yarn/
+.pnpm-debug.log
+
+# React environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS-specific
+.DS_Store
+Thumbs.db
