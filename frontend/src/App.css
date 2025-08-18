@@ -19,11 +19,15 @@ body {
   background-color: #fff;
   border-bottom: 1px solid #ddd;
   align-items: center;
+  padding-left: 450px;
+  /* padding-right: 100px; */
 }
 
 .logo {
   font-weight: bold;
   font-size: 1.2rem;
+  text-decoration: none;
+  color: black;
 }
 
 .nav-buttons {

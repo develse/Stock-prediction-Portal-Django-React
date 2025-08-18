@@ -1,7 +1,29 @@
 import React from "react";
 import "./App.css";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Register from "./components/register";
+import Login from "./components/login";
 
-function App() {
+// Define the shared navbar
+const Navbar = () => (
+  <nav className="navbar">
+    <Link to="/" className="logo">
+      📈 Stock Prediction Portal
+    </Link>
+    <div className="nav-buttons">
+      <Link to="/login">
+        <button className="nav-btn">Login</button>
+      </Link>
+      <Link to="/register">
+        <button className="nav-btn register">Register</button>
+      </Link>
+    </div>
+    <br></br>
+  </nav>
+);
+
+// Define the Home page
+const Home = () => {
   const features = [
     {
       icon: "📊",
@@ -24,19 +46,11 @@ function App() {
   ];
 
   return (
-    <div className="App">
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo">📈 Stock Prediction Portal</div>
-        <div className="nav-buttons">
-          <button className="nav-btn">Login</button>
-          <button className="nav-btn register">Register</button>
-        </div>
-      </nav>
-
+    <>
       {/* Hero Section */}
       <section className="hero">
         <h1>
+          <br></br>
           Advanced Stock Market <span className="highlight">Predictions</span>
         </h1>
         <p>
@@ -45,10 +59,6 @@ function App() {
           analyze market trends, historical data, and real-time indicators to
           provide accurate stock predictions and portfolio optimization.
         </p>
-        <div className="hero-buttons">
-          {/* <button className="get-started">Get Started Free</button>
-          <button className="learn-more">Learn More</button> */}
-        </div>
       </section>
 
       {/* Features Section */}
@@ -61,6 +71,25 @@ function App() {
           </div>
         ))}
       </div>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <div className="App">
+      <BrowserRouter>
+        {/* Always visible Navbar */}
+        <Navbar />
+
+        {/* Page Routes */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          {/* You can add more pages like <Route path="/login" element={<Login />} /> */}
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
