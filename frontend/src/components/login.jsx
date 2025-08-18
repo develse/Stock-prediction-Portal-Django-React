@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./login.css"; // renamed CSS file
+import "./login.css";
+import axios from "axios";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -7,13 +8,42 @@ function Login() {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [status, setStatus] = useState(null);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Logged in:", formData);
+    setLoading(true);
+    setMessage(null);
+    setStatus(null);
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/v1/token/",
+        formData
+      );
+
+      const { access, refresh } = response.data;
+
+      // Store tokens in localStorage
+      localStorage.setItem("accessToken", access);
+      localStorage.setItem("refreshToken", refresh);
+
+      console.log("JWT Login successful:", response.data);
+      setStatus("success");
+      setMessage("✅ Login successful!");
+    } catch (error) {
+      console.error("JWT Login error:", error.response?.data || error.message);
+      setStatus("error");
+      setMessage("❌ Login failed. Check your credentials.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,7 +65,14 @@ function Login() {
           onChange={handleChange}
           required
         />
-        <button type="submit">Login</button>
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
+
+        {loading && <div className="loader">Loading...</div>}
+
+        {message && <div className={`popup ${status}`}>{message}</div>}
       </form>
     </div>
   );

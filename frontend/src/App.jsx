@@ -1,28 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Register from "./components/register";
 import Login from "./components/login";
 
-// Define the shared navbar
-const Navbar = () => (
-  <nav className="navbar">
-    <Link to="/" className="logo">
-      📈 Stock Prediction Portal
-    </Link>
-    <div className="nav-buttons">
-      <Link to="/login">
-        <button className="nav-btn">Login</button>
-      </Link>
-      <Link to="/register">
-        <button className="nav-btn register">Register</button>
-      </Link>
-    </div>
-    <br></br>
-  </nav>
-);
+// Updated Navbar with container
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-// Define the Home page
+  return (
+    <nav className="navbar">
+      <div className="navbar-container">
+        <Link to="/" className="logo">
+          📈 Stock Prediction Portal
+        </Link>
+
+        {/* Hamburger icon */}
+        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          ☰
+        </div>
+
+        {/* Navigation buttons */}
+        <div className={`nav-buttons ${menuOpen ? "open" : ""}`}>
+          <Link to="/login" onClick={() => setMenuOpen(false)}>
+            <button className="nav-btn">Login</button>
+          </Link>
+          <Link to="/register" onClick={() => setMenuOpen(false)}>
+            <button className="nav-btn register">Register</button>
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+// Home Page
 const Home = () => {
   const features = [
     {
@@ -50,7 +62,7 @@ const Home = () => {
       {/* Hero Section */}
       <section className="hero">
         <h1>
-          <br></br>
+          <br />
           Advanced Stock Market <span className="highlight">Predictions</span>
         </h1>
         <p>
@@ -79,15 +91,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* Always visible Navbar */}
         <Navbar />
-
-        {/* Page Routes */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          {/* You can add more pages like <Route path="/login" element={<Login />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

@@ -31,8 +31,12 @@ function Register() {
       console.log("response.data ==>", response.data);
       setStatus("success");
       setMessage("🎉 Registration successful!");
+      setFormData({ username: "", email: "", password: "" });
     } catch (error) {
-      console.error("Registration error:", error.response?.data || error.message);
+      console.error(
+        "Registration error:",
+        error.response?.data || error.message
+      );
       setStatus("error");
       setMessage("❌ Registration failed. Please try again.");
     } finally {
@@ -76,11 +80,7 @@ function Register() {
         {loading && <div className="loader">Loading...</div>}
 
         {/* Success or Error Popup */}
-        {message && (
-          <div className={`popup ${status}`}>
-            {message}
-          </div>
-        )}
+        {message && <div className={`popup ${status}`}>{message}</div>}
       </form>
     </div>
   );
