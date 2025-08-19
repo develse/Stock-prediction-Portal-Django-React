@@ -38,8 +38,9 @@ function Login({ onLoginSuccess }) {
 
       setStatus("success");
       setMessage("✅ Login successful!");
-      onLoginSuccess(); // update state in App
-      navigate("/"); // redirect to Home
+      onLoginSuccess(); // update login state
+      // DASHBAORD NEED TO BE DONE NOW!
+      navigate("/dashboard"); // ✅ redirect to dashboard
     } catch (error) {
       console.error("JWT Login error:", error.response?.data || error.message);
       setStatus("error");

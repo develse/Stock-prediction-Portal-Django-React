@@ -1,0 +1,122 @@
+/* ===== Stock Carousel Styles ===== */
+.carousel-container {
+  width: 90%;
+  max-width: 750px;
+  height: 80px; /* fixed shorter height */
+  margin: 1rem auto;
+  padding: 0.75rem 1rem;
+  overflow: hidden;
+  background-color: #fdfaf6; /* Beige-like background */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  text-align: center;
+  position: relative;
+}
+
+/* Title above carousel */
+.carousel-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+/* Carousel scroller wrapper */
+.carousel-wrapper {
+  overflow: hidden; /* Hide scrollbar & overflow */
+  width: 100%;
+  height: calc(100% - 1.5rem);
+  position: relative;
+}
+
+/* Carousel scroller itself */
+.carousel {
+  display: flex;
+  gap: 0.8rem;
+  width: max-content; /* allow to extend horizontally */
+  animation: scroll-left 100s linear infinite;
+  will-change: transform;
+  padding-bottom: 0.3rem;
+}
+
+/* Pause scroll on hover */
+.carousel-wrapper:hover .carousel {
+  animation-play-state: paused;
+}
+
+/* Hide scrollbar */
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+.carousel {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Scroll animation */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Each stock card */
+.carousel-item {
+  flex: 0 0 auto;
+  min-width: 100px;
+  max-width: 100px;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background: #f3efe7;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Stock logo */
+.carousel-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  margin-bottom: 0.3rem;
+  filter: grayscale(30%) opacity(0.8);
+}
+
+/* Placeholder if no logo */
+.carousel-placeholder {
+  width: 28px;
+  height: 28px;
+  background-color: #ddd6ce;
+  border-radius: 50%;
+  margin-bottom: 0.3rem;
+}
+
+/* Ticker symbol */
+.symbol {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #805d3a;
+  margin-bottom: 0.1rem;
+}
+
+/* Company name */
+.name {
+  font-size: 0.6rem;
+  color: #6d5c4c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: center;
+}

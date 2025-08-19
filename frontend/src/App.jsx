@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
+import "./components/Dashboard.css"; // ✅ fixed path
+import StockCarousel from "./components/StockCarousel"; // ✅ will use its own CSS
+
 import "./App.css";
 import {
   BrowserRouter,
   Routes,
   Route,
   Link,
-  useLocation,
+  useNavigate,
 } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
 import Register from "./components/register";
 import Login from "./components/login";
+import Dashboard from "./components/Dashboard";
 
-// Navbar Component
 const Navbar = ({
   isLoggedIn,
   onLogoutClick,
@@ -24,7 +26,7 @@ const Navbar = ({
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="logo">
+        <Link to="/" className="logo" onClick={() => setMenuOpen(false)}>
           📈 Stock Prediction Portal
         </Link>
 
@@ -36,10 +38,14 @@ const Navbar = ({
           {!isLoggedIn ? (
             <>
               <Link to="/login" onClick={() => setMenuOpen(false)}>
-                <button className="nav-btn">Login</button>
+                <button className="nav-btn">
+                  <b>Login</b>
+                </button>
               </Link>
               <Link to="/register" onClick={() => setMenuOpen(false)}>
-                <button className="nav-btn register">Register</button>
+                <button className="nav-btn register">
+                  <b>Register</b>
+                </button>
               </Link>
             </>
           ) : (
@@ -47,27 +53,19 @@ const Navbar = ({
               <button className="nav-btn logout" onClick={onLogoutClick}>
                 Logout
               </button>
-              <AnimatePresence>
-                {showLogoutConfirm && (
-                  <motion.div
-                    className="logout-confirm-dropdown"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <p>Are you sure?</p>
-                    <div className="dropdown-buttons">
-                      <button className="confirm-btn" onClick={onConfirmLogout}>
-                        Yes
-                      </button>
-                      <button className="cancel-btn" onClick={onCancelLogout}>
-                        No
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {showLogoutConfirm && (
+                <div className="logout-confirm-dropdown">
+                  <p>Are you sure?</p>
+                  <div className="dropdown-buttons">
+                    <button className="confirm-btn" onClick={onConfirmLogout}>
+                      Yes
+                    </button>
+                    <button className="cancel-btn" onClick={onCancelLogout}>
+                      No
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -76,33 +74,23 @@ const Navbar = ({
   );
 };
 
-// Simple Page Wrapper for transitions
-const PageWrapper = ({ children }) => {
-  const variants = {
-    initial: { opacity: 0, y: 10 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -10 },
-  };
+const Footer = () => (
+  <footer className="footer">
+    <hr className="footer-divider" />
+    <p>
+      &copy; {new Date().getFullYear()} Stock Prediction Portal. All rights
+      reserved.
+    </p>
+  </footer>
+);
 
-  return (
-    <motion.div
-      variants={variants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={{ duration: 0.3 }}
-    >
-      {children}
-    </motion.div>
-  );
-};
+const Home = ({ isLoggedIn }) => {
+  const navigate = useNavigate();
 
-// Home Component
-const Home = () => {
   const features = [
     {
       icon: "📊",
-      title: "AI‑Powered Analysis",
+      title: "AI-Powered Analysis",
       description:
         "Advanced algorithms analyze market data to identify trends.",
     },
@@ -118,8 +106,16 @@ const Home = () => {
     },
   ];
 
+  const handleSelectTicker = (symbol) => {
+    if (isLoggedIn) {
+      navigate("/dashboard");
+    } else {
+      alert(`Please login to view prediction for ${symbol}`);
+    }
+  };
+
   return (
-    <PageWrapper>
+    <div>
       <section className="hero">
         <h1>
           Advanced Stock Market <span className="highlight">Predictions</span>
@@ -127,7 +123,19 @@ const Home = () => {
         <p>
           Use AI and machine learning to make informed investment decisions.
         </p>
+        {isLoggedIn && (
+          <button
+            className="go-to-dashboard-btn"
+            onClick={() => navigate("/dashboard")}
+          >
+            <b>Dashboard</b>
+          </button>
+        )}
       </section>
+
+      {/* ✅ StockCarousel */}
+      <StockCarousel onSelectTicker={handleSelectTicker} />
+
       <div className="features">
         {features.map((feature, idx) => (
           <div key={idx} className="feature-card">
@@ -137,27 +145,31 @@ const Home = () => {
           </div>
         ))}
       </div>
-    </PageWrapper>
+    </div>
   );
 };
 
-// Main App Component
-function App() {
+const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) setIsLoggedIn(true);
+    if (localStorage.getItem("accessToken")) {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   const handleLoginSuccess = () => setIsLoggedIn(true);
+
   const confirmLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     setIsLoggedIn(false);
     setShowLogoutPopup(false);
+    navigate("/");
   };
+
   const cancelLogout = () => setShowLogoutPopup(false);
   const handleLogoutClick = () => setShowLogoutPopup(true);
 
@@ -170,30 +182,26 @@ function App() {
         onConfirmLogout={confirmLogout}
         onCancelLogout={cancelLogout}
       />
-      <AnimatePresence exitBeforeEnter>
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/register"
-            element={
-              <PageWrapper>
-                <Register />
-              </PageWrapper>
-            }
-          />
+
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/login"
-            element={
-              <PageWrapper>
-                <Login onLoginSuccess={handleLoginSuccess} />
-              </PageWrapper>
-            }
+            element={<Login onLoginSuccess={handleLoginSuccess} />}
+          />
+          <Route
+            path="/dashboard"
+            element={<Dashboard isLoggedIn={isLoggedIn} />}
           />
         </Routes>
-      </AnimatePresence>
+      </div>
+
+      <Footer />
     </div>
   );
-}
+};
 
 export default function WrappedApp() {
   return (

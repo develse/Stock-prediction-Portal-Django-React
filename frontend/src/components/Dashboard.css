@@ -1,0 +1,203 @@
+.dashboard-wrapper {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.dashboard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.ticker-bar-carousel {
+  margin-bottom: 1rem;
+}
+
+.ticker-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.ticker-carousel-wrapper {
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.ticker-carousel {
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.ticker-item {
+  background-color: #bde0fe;
+  border-radius: 12px;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ticker-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.ticker-placeholder {
+  width: 24px;
+  height: 24px;
+  background-color: #bbb;
+  border-radius: 4px;
+}
+
+.ticker-info strong {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.ticker-info small {
+  font-size: 0.7rem;
+  color: #555;
+}
+
+.load-more-btn {
+  margin-top: 0.5rem;
+  padding: 0.3rem 1rem;
+  border: 1px solid #007bff;
+  background-color: white;
+  color: #007bff;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.load-more-btn:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-panel {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.ticker-input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  flex: 1;
+  max-width: 300px;
+}
+
+.prediction-btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.prediction-btn:disabled {
+  background-color: #99c7ff;
+  cursor: not-allowed;
+}
+
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: 6px;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.prediction-result {
+  margin-top: 2rem;
+}
+
+.prediction-image {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal-content {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-height: 90%;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.modal-image {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.close-modal {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+.ticker-carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+  height: auto;
+}
+
+.ticker-carousel {
+  display: inline-flex;
+  gap: 1rem;
+  animation: scrollTicker 200s linear infinite;
+  will-change: transform;
+}
+
+@keyframes scrollTicker {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
