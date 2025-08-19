@@ -177,3 +177,264 @@ body {
     padding: 1rem;
   }
 }
+.nav-btn.logout {
+  background-color: #e74c3c; /* red logout color */
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-btn.logout:hover {
+  background-color: #c0392b; /* darker red on hover */
+}
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1); /* lighter dimmed background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  font-family: "Inter", sans-serif;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 6px;
+  text-align: center;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee;
+}
+
+/* Modal Buttons */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Buttons */
+.confirm-btn,
+.cancel-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 80px;
+  transition: all 0.2s ease;
+  background: none;
+  border: 1px solid #ccc;
+}
+
+.confirm-btn {
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.confirm-btn:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+.cancel-btn {
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Logout Button Styling */
+.nav-btn.logout {
+  background: none;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 14px;
+}
+
+.nav-btn.logout:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+/* Minimalist Logout Dropdown */
+.logout-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.logout-confirm-dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 10px 14px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 14px;
+  z-index: 100;
+  width: max-content;
+  white-space: nowrap;
+}
+
+.logout-confirm-dropdown p {
+  margin: 0 0 8px;
+  font-weight: 500;
+}
+
+.dropdown-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.dropdown-buttons .confirm-btn,
+.dropdown-buttons .cancel-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease;
+}
+
+.dropdown-buttons .confirm-btn {
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.dropdown-buttons .confirm-btn:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.dropdown-buttons .cancel-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* Logout Button Styling */
+.nav-btn.logout {
+  background: none;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 14px;
+}
+
+.nav-btn.logout:hover {
+  background: #e74c3c;
+  color: white;
+}
+/* ========== Logout Confirmation Dropdown ========== */
+
+.logout-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.logout-confirm-dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 12px 16px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  z-index: 100;
+  width: 250px;
+  text-align: center;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.logout-confirm-dropdown p {
+  margin: 0 0 12px;
+  font-weight: 500;
+  color: #333;
+}
+
+.dropdown-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dropdown-buttons .confirm-btn,
+.dropdown-buttons .cancel-btn {
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  border: 1px solid #ccc;
+  transition: 0.2s ease-in-out;
+}
+
+.dropdown-buttons .confirm-btn {
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.dropdown-buttons .confirm-btn:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.dropdown-buttons .cancel-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* Responsive: Move confirmation to center on small screens */
+@media (max-width: 600px) {
+  .logout-confirm-dropdown {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 300px;
+    padding: 16px;
+    z-index: 9999;
+  }
+
+  .dropdown-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dropdown-buttons button {
+    width: 100%;
+  }
+}
+
+/* Optional Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

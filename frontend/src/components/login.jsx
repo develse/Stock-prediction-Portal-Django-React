@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./login.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({ onLoginSuccess }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -11,6 +12,8 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [status, setStatus] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,13 +33,13 @@ function Login() {
 
       const { access, refresh } = response.data;
 
-      // Store tokens in localStorage
       localStorage.setItem("accessToken", access);
       localStorage.setItem("refreshToken", refresh);
 
-      console.log("JWT Login successful:", response.data);
       setStatus("success");
       setMessage("✅ Login successful!");
+      onLoginSuccess(); // update state in App
+      navigate("/"); // redirect to Home
     } catch (error) {
       console.error("JWT Login error:", error.response?.data || error.message);
       setStatus("error");
@@ -71,7 +74,6 @@ function Login() {
         </button>
 
         {loading && <div className="loader">Loading...</div>}
-
         {message && <div className={`popup ${status}`}>{message}</div>}
       </form>
     </div>
