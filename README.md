@@ -1,6 +1,4 @@
-Certainly! Below is a comprehensive README file tailored for your Stock Prediction Portal project, which utilizes Django, React, and machine learning.
 
----
 
 # 📈 Stock Prediction Portal
 
